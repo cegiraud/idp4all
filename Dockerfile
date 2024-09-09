@@ -1,6 +1,4 @@
-ARG CI_REGISTRY
-
-FROM eclipse-temurin:22.0.2_9-jdk-alpine as builder
+FROM eclipse-temurin:22.0.2_9-jdk-alpine AS builder
 
 WORKDIR /tmp
 
