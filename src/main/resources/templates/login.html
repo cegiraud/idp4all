@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      th:replace="~{layout :: layout(title=~{::title/text()},
+                    content=~{::#content})}">
+<head>
+    <title>login</title>
+</head>
+<body>
+<main id="content" class="flex items-center justify-center h-screen">
+    <div>
+        <h1>IdP 4 All</h1>
+        <h2>Scan me</h2>
+        <section id="login-code">
+            <canvas title="https://microsoft.com/devicelogin" id="qrcode"></canvas>
+            <p>+</p>
+            <p>enter the following code :</p>
+            <p id="code"></p>
+        </section>
+        <span class="text-divider">or sign in with</span>
+        <section id="login-button">
+            <button id="login-microsoft" onclick="location.href='/oauth2/authorization/remote'" type="button">Microsoft
+            </button>
+        </section>
+    </div>
+    <script th:inline="javascript">
+        async function check() {
+            const response = await fetch('/login', {method: "POST"});
+            if (response.status === 204) {
+                window.location.href = response.headers.get("Location");
+            }
+            if (response.status !== 200) {
+                return
+            }
+            const userCode = await response.json();
+            if (document.getElementById("code").innerText !== userCode.tokenValue) {
+                document.getElementById("code").innerText = userCode.tokenValue;
+            }
+            bwipjs.toCanvas('qrcode', {
+                bcid: 'qrcode',
+                text: 'https://microsoft.com/devicelogin',
+                scale: 4,
+            });
+            setTimeout(check, 5_000);
+        }
+        check();
+    </script>
+</main>
+</body>
+</html>

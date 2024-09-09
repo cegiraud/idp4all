@@ -1,0 +1,158 @@
+:root {
+    color-scheme: light dark;
+}
+
+.light {
+    color-scheme: light;
+}
+
+.dark {
+    color-scheme: dark;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+html, body {
+    background-color: light-dark(white, black);
+    color: black;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 90vh;
+    font-size: 1.5rem;
+}
+
+main {
+    margin: 3rem auto;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 2rem;
+    padding: 20px;
+    background-color: light-dark(lightyellow, #737300);
+}
+
+h1 {
+    border-bottom: 2px solid black;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+
+p#code {
+    background-color: light-dark(white, lightyellow);
+    border: 1px solid lightgray;
+    padding: 10px 10px 10px 1.2em;
+    margin: 1rem 0;
+    border-radius: 3rem;
+    font-family: monospace;
+    letter-spacing: 1.2rem;
+}
+
+button#login-microsoft {
+    background-color: light-dark(white, lightyellow);
+    border: 1px solid lightgray;
+    border-radius: 3rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.8em;
+    padding: 0.5em 1em;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+button#login-microsoft:hover {
+    background-color: lightgray;
+}
+
+button#login-microsoft:before {
+    content: url('/images/microsoft.svg');
+    vertical-align: middle;
+    padding-right: 0.2em;
+}
+
+.text-divider {
+    display: flex;
+    align-items: center;
+    color: darkgray;
+    font-size: 0.8em;
+}
+
+.text-divider::before, .text-divider::after {
+    content: '';
+    height: 1px;
+    background-color: lightgray;
+    flex-grow: 1;
+    margin: 15px;
+}
+
+
+/******************/
+/**  Error page  **/
+/******************/
+
+main h1#error {
+    border-bottom: none;
+    margin: 0.5em 1em;
+    padding: 0;
+}
+
+
+/***************/
+/**  Sliders  **/
+/***************/
+
+
+div#theme-switcher {
+    background-color: light-dark(lightyellow, #737300);
+    border: 1px solid light-dark(black, #737300);
+    border-radius: 3rem;
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.switch-toggle {
+    float: left;
+    margin: 1em;
+    padding: 0;
+}
+
+.switch-toggle input {
+    position: absolute;
+    opacity: 0;
+}
+
+.switch-toggle input + label {
+    float: left;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 0.7em;
+    border-radius: 3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.switch-toggle input:checked + label {
+    background: lightgray;
+}

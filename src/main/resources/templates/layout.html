@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout (title, content)">
+<head>
+    <meta charset="UTF-8">
+    <title>IdP 4 All - <th:block th:insert="${title}"/></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/main.css">
+    <script type="text/javascript" src='/js/bwip-js-min.js'></script>
+</head>
+<body onload="initTheme()">
+<script type="application/javascript">
+    function initTheme() {
+        const themeToApply = localStorage.getItem('theme') || 'system';
+        changeTheme(themeToApply);
+        console.debug('Theme applied: ' + themeToApply);
+    }
+
+    function changeTheme(theme) {
+        if (theme === 'system') {
+            localStorage.removeItem('theme');
+            document.getElementById('system').checked = true;
+            document.documentElement.classList.remove('light');
+            document.documentElement.classList.remove('dark');
+        }
+        if (theme === 'light') {
+            localStorage.setItem('theme', 'light');
+            document.getElementById('light').checked = true;
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+        if (theme === 'dark') {
+            localStorage.setItem('theme', 'dark');
+            document.getElementById('dark').checked = true;
+            document.documentElement.classList.remove('light');
+            document.documentElement.classList.add('dark');
+        }
+    }
+</script>
+<div id="theme-switcher" class="switch-toggle">
+    <input id="light" name="theme" type="radio"/>
+    <label for="light" onclick="changeTheme('light')">☀️</label>
+
+    <input id="system" name="theme" type="radio"/>
+    <label for="system" class="disabled" onclick="changeTheme('system')">🌗</label>
+
+    <input id="dark" name="theme" type="radio"/>
+    <label for="dark" onclick="changeTheme('dark')">🌑</label>
+</div>
+<main th:replace="${content}"></main>
+</body>
+</html>

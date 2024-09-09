@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: "health,metrics,prometheus"
+
+spring:
+  main:
+    banner-mode: off
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          local:
+            registration:
+              client-id: "${IDP4ALL_LOCAL_CLIENT_ID:}"
+              client-secret: "{noop}${IDP4ALL_LOCAL_CLIENT_SECRET:}"
+              redirect-uris: "${IDP4ALL_LOCAL_REDIRECT_URIS:}"
+              post-logout-redirect-uris: "${IDP4ALL_LOCAL_POST_LOGOUT_REDIRECT_URIS:}"
+              client-authentication-methods:
+                - "client_secret_basic"
+                - "client_secret_post"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+              scopes: "openid"
+            require-authorization-consent: false
+      client:
+        registration:
+          remote:
+            client-id: "${IDP4ALL_REMOTE_CLIENT_ID:}"
+            client-secret: "${IDP4ALL_REMOTE_CLIENT_SECRET:}"
+            scope:
+              - "openid"
+              - "profile"
+            authorization-grant-type: authorization_code
+            client-authentication-method: client_secret_basic
+        provider:
+          remote:
+            issuer-uri: "${IDP4ALL_REMOTE_ISSUER_URI:}"
+  config:
+    import: optional:classpath:local.properties
+jwt-signature:
+  public-key: "${IDP4ALL_JWT_SIGNATURE_PUBLIC_KEY:}"
+  private-key: "${IDP4ALL_JWT_SIGNATURE_PRIVATE_KEY:}"

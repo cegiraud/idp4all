@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      th:replace="~{layout :: layout(title=~{::title/text()},
+                    content=~{::#content})}">
+<head>
+    <title>error</title>
+</head>
+<body>
+<main id="content" class="flex items-center justify-center h-screen">
+    <h1 id="error">Une erreur est survenue 😱</h1>
+</main>
+</body>
+</html>
